@@ -9,4 +9,5 @@ public interface ClientService {
     Flux<Client> findAll();
     Mono<Client> findById(String id);
     Mono<Client> save(Client client);
+    Mono<Void> deleteById(String id);
 }

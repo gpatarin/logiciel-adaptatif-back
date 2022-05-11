@@ -1,5 +1,6 @@
 package com.ynov.logicieladaptatif.client.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.ynov.logicieladaptatif.resolver.model.Ignore;
 import com.ynov.logicieladaptatif.resolver.model.Model;
 import com.ynov.logicieladaptatif.resolver.model.Type;
@@ -12,7 +13,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -37,9 +37,10 @@ public class Client {
     @NotBlank(message = "mail should not be a blank String")
     private String mail;
     @CreatedDate
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ssXXX")
     private Date createdAt;
     @Type(value = "list", model = Order.class)
-    private List<Order> orders = new ArrayList<>();
+    private List<Order> orders;
 
     public Client(String firstName, String lastName, String mail, Date createdAt, List<Order> orders) {
         this.firstName = firstName;

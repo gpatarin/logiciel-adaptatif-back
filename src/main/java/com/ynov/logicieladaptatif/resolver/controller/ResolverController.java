@@ -42,6 +42,7 @@ public class ResolverController {
     @GetMapping
     public Map<String, Resolver> resolve() throws ClassNotFoundException {
         Map<String, Resolver> elements = new HashMap<>();
+
         for(BeanDefinition modelBean: modelsBeans) {
             Class<?> c = Class.forName(modelBean.getBeanClassName());
             elements.put(c.getSimpleName(), new Resolver(c.getSimpleName().toLowerCase(Locale.ROOT), c.getDeclaredFields()));

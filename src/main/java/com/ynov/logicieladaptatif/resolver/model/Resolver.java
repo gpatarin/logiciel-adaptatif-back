@@ -1,7 +1,5 @@
 package com.ynov.logicieladaptatif.resolver.model;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -21,10 +19,10 @@ public class Resolver {
         this.name = name;
         this.attributes = new ArrayList<>();
         for(Field f: fields) {
-            Ignore a = f.getAnnotation(Ignore.class);
+            Ignore ignore = f.getAnnotation(Ignore.class);
             Type customType = f.getAnnotation(Type.class);
 
-            if(a == null) {
+            if(ignore == null) {
                 String attrName = f.getName();
                 String type = f.getType().getSimpleName().toLowerCase(Locale.ROOT);
                 if(customType != null) {

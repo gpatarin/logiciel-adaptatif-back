@@ -49,4 +49,13 @@ public class OrderServiceImpl implements OrderService {
                             .flatMap(savedClient -> Mono.just(savedClient.getOrders().get(index)));
                 });
     }
+
+    @Override
+    public Mono<Void> deleteByIndex(String id, int index) {
+        return clientService.findById(id)
+                .flatMap(client -> {
+                    client.getOrders().remove(index);
+                    return clientService.save(client).then();
+                });
+    }
 }

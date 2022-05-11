@@ -35,7 +35,7 @@ public class ClientController {
     }
 
     @GetMapping("/{id}")
-    public Mono<Client> readClient(@RequestParam String id) {
+    public Mono<Client> readClient(@PathVariable String id) {
         return clientService.findById(id);
     }
 
@@ -44,23 +44,33 @@ public class ClientController {
         return clientService.save(client);
     }
 
+    @DeleteMapping("/{id}")
+    public Mono<Void> deleteClient(@PathVariable String id) {
+        return clientService.deleteById(id);
+    }
+
     @PutMapping("/{id}/order")
-    public Flux<Order> createOrders(@RequestParam String id, @RequestBody Flux<Order> orders) {
+    public Flux<Order> createOrders(@PathVariable String id, @RequestBody Flux<Order> orders) {
         return orderService.insertAll(id, orders);
     }
 
     @GetMapping("/{id}/order")
-    public Flux<Order> readOrders(@RequestParam String id) {
+    public Flux<Order> readOrders(@PathVariable String id) {
         return orderService.findAll(id);
     }
 
     @GetMapping("/{id}/order/{index}")
-    public Mono<Order> readOrder(@RequestParam String id, @RequestParam int index) {
+    public Mono<Order> readOrder(@PathVariable String id, @PathVariable int index) {
         return orderService.findByIndex(id, index);
     }
 
     @PostMapping("/{id}/order/{index}")
-    public Mono<Order> updateOrder(@RequestParam String id, @RequestParam int index, @RequestBody Order order) {
+    public Mono<Order> updateOrder(@PathVariable String id, @PathVariable int index, @RequestBody Order order) {
         return orderService.save(id, index, order);
+    }
+
+    @DeleteMapping("/{id}/order/{index}")
+    public Mono<Void> deleteOrder(@PathVariable String id, @PathVariable int index) {
+        return orderService.deleteByIndex(id, index);
     }
 }

@@ -9,4 +9,5 @@ public interface OrderService {
     Flux<Order> findAll(String id);
     Mono<Order> findByIndex(String id, int index);
     Mono<Order> save(String id, int index, Order order);
+    Mono<Void> deleteByIndex(String id, int index);
 }
